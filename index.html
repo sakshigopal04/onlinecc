@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Currency Converter</title>
+    <script>
+        function convert()
+        {
+            event.preventDefault();
+            let amt = document.getElementById("amt");
+            let ans = document.getElementById("ans");
+
+            if(amt.value=="")
+            {
+                alert("Input is empty");
+                ans.innerHTML="";
+                amt.focus();
+                return;
+            }
+            
+            let aid=parseFloat(amt.value);
+
+            let url="https://api.exchangerate-api.com/v4/latest/USD";
+            let dollar=0.0;
+
+            // fetch
+            // .then
+            // .then
+            // .catch;
+
+            fetch(url)
+            .then(res=>res.json())
+            .then(data=>{ dollar = data.rates.INR;
+                let air=aid*82.60;
+                let msg="\u20B9" + air.toFixed(2);
+                ans.innerHTML=msg;
+            })
+            .catch(err => {ans.innerHTML="issue "+ err;})
+
+            
+
+        }
+    </script>
+    <style>
+        *{
+            background-color: rgb(181, 253, 253);
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Online Currency Converter</h1>
+        <form onsubmit="convert()">
+            <input type="number" step="any" placeholder="Enter Amount in $$" id="amt">
+            <br>
+            <br>
+            <input type="submit" value="convert" />
+        </form>
+        <h2 id="ans" />
+    </center>
+</body>
+</html>
